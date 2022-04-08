@@ -53,15 +53,15 @@
     ~~~
 ### 4. `Arrays`
 - `Arrays.mismatch()`
-- 두 배열 요소 중 일치하지 않는 첫번째 인덱스를 반환. (인덱스 기준은 첫번째 배열)
-- 없으면 -1 반환.
+  - 두 배열 요소 중 일치하지 않는 첫번째 인덱스를 반환. (인덱스 기준은 첫번째 배열)
+  - 없으면 -1 반환.
     ~~~java
     int[] arr1 = {1, 2, 3, 4, 5};
     int[] arr2 = {1, 2, 3, 5, 6};
     int i = Arrays.mismatch(arr1, arr2); // i == 3
     ~~~
-- 두 배열의 크기가 다를 경우, 오버라이드 메소드를 사용하여 검색 인덱스 지정
-- `int mismatch(int[] a, int aFromIndex, int aToIndex, int[] b, int bFromIndex, int bToIndex)`
+  - 두 배열의 크기가 다를 경우, 오버라이드 메소드를 사용하여 검색 인덱스 지정
+  - `int mismatch(int[] a, int aFromIndex, int aToIndex, int[] b, int bFromIndex, int bToIndex)`
     ~~~java
     int[] arr1 = {-2, 1, 2, 3, 4, 5};
     int[] arr2 = {-1, 0, 1, 2, 3, 5, 6, 7};
@@ -69,14 +69,14 @@
     ~~~
   
 - `Arrays.equals()`
-- 두 배열의 요소가 동일한지 비교.
+  - 두 배열의 요소가 동일한지 비교.
     ~~~java
     int[] arr1 = {1, 2, 3};
     int[] arr2 = {1, 2, 3};
     boolean b = Arrays.equals(arr1, arr2); // b == true
     ~~~
-- 배열의 요소 중, 비교할 검색 인덱스 지정 가능
-- `boolean equals(int[] a, int aFromIndex, int aToIndex, int[] b, int bFromIndex, int bToIndex)`
+  - 배열의 요소 중, 비교할 검색 인덱스 지정 가능
+  - `boolean equals(int[] a, int aFromIndex, int aToIndex, int[] b, int bFromIndex, int bToIndex)`
     ~~~java
     int[] arr1 = {0, 1, 2, 3};
     int[] arr2 = {-2, -1, 1, 2, 3, 4};
