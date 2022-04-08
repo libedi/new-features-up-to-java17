@@ -1,13 +1,13 @@
 # **Java 9 New Features**
 ## **1. Try-With-Resources 개선**
-- Java 7/8에서는 다음과 같이 `try`문 안에서만 가능했다.
+- Java 7/8에서는 다음과 같이 `try`문 안에서만 리소스 선언이 가능했다.
     ~~~java
     try (InputStream stream1 = new InputStream(...);
-        InputStream stream2 = new InputStream(...)) {
+         InputStream stream2 = new InputStream(...)) {
         ....
     }
     ~~~
-- Java 9에서는 더이상 `try`문 안에 선언할 필요없이 ***참조만 사용하면 된다.***
+- Java 9에서는 더이상 `try`문 안에 선언할 필요없이 리소스의 ***참조만 사용하면 된다.***
     ~~~java
     InputStream stream1 = new InputStream(...);
     InputStream stream2 = new InputStream(...);
@@ -22,11 +22,21 @@
     ~~~java
     Set<Integer> integers = Set.of(1, 2, 3, 4);
     ~~~
+- 가능하면 10개 안에서 생성하자. 10개를 넘어가면 가변인자를 사용한다.
+    ~~~java
+    of() // empty set
+    of(E)
+    of(E, E)
+    ...
+    of(E, E, E, E, E, E, E, E, E, E) // 10개 요소까지
+    of(E...) // 가변인자
+    ~~~
 ### 2. `List`
 - 불변객체를 간편하게 생성하는 팩토리 메소드를 제공
     ~~~java
     List<Integer> integers = List.of(1, 2, 3, 4);
     ~~~
+- 가능하면 10개 안에서 생성하자. 10개를 넘어가면 가변인자를 사용한다.
 ### 3. `Map`
 - 불변객체를 간편하게 생성하는 팩토리 메소드를 제공
     ~~~java
@@ -34,7 +44,12 @@
     Map<Integer, String> map2 = Map.ofEntries(
                                     Map.entry(1, "one"),
                                     Map.entry(2, "two")
-                                    );
+                                    );  // 가변인자
+    ~~~
+- of() 메소드는 최대 10개의 Key-Value Pair를 제공한다.
+    ~~~java
+    of(K, V, K, V, K, V, K, V, K, V, K, V, K, V, K, V, K, V, K, V) // 10 pairs
+    // 내부적으로 2 pairs부터 가변인자를 사용하여 생성한다.
     ~~~
 ### 4. `Arrays`
 - `Arrays.mismatch()`
@@ -99,7 +114,7 @@
 ### 4. `Stream<T> Stream.ofNullable(`*T*`)`
 - `Optional.ofNullable()`처럼 단일 요소의 순차 스트림을 반환.
 - 요소가 `null`인 경우, 빈 스트림을 반환.
-- 이 메소드는 단일 요소의 스트림을 추가하려는 경우, 유용할 수 있다.
+- 이 메소드는 단일 요소의 스트림 추가시 유용할 수 있다.
     ~~~java
     Stream<String> stream1 = Stream.of("apple", "banana");
 
@@ -112,4 +127,40 @@
     // ["apple", "banana"]
     ~~~
 
-## **4. Collectors 신규 메소드**
+## **4. `java.util.Optional` 개선**
+- **java 8에서 `Optional`을 사용할 때 다소 아쉬운 부분이 있었는데, java 9에서는 그러한 부분의 많은 기능 추가가 있었다.**
+
+### 1. `Optional.ifPresentOrElse(`*Consumer, Runnable*`)`
+- 값이 존재하면 `Consumer`를 실행하고, 없으면 `Runnable`을 실행한다.
+- java 8에서 가장 아쉬웠던 부분이었는데, 가장 유용한 기능 중의 하나가 아닐까 한다.
+    ~~~java
+    IntStream.of(1, 2, 4)
+             .filter(i -> i % 3 == 0)
+             .findFirst()
+             .ifPresendOrElse(System.out::println, () -> {
+                 System.out.println("No multiple of 3 found");
+             });
+             // No multiple of 3 found
+    ~~~
+
+### 2. `Optional.stream()`
+- 값이 존재하면 순차 스트림을 반환하고, 없으면 빈 스트림을 반환한다.
+- 이 메소드는 `Optional` 스트림을 스트림으로 변환할 때 사용될 수 있다.
+    ~~~java
+    Stream<Optional<T>> os = ...
+    Stream<T> s = os.flatMap(Optional::stream);
+    ~~~
+
+### 3. `Optional.or(`*Supplier*`)`
+- 값이 없을 때, `Supplier`를 통해 새로운 `Optional`을 지연 생성할 수 있다.
+- `orElseGet()`과 유사하지만, `orElseGet()`이 값을 반환하는 반면, `or()`는 `Optional`의 인스턴스를 반환하는 차이가 있다.
+    ~~~java
+    char result = Stream.of('a', 'b', 'c')
+                        .filter(Character::isDigit)
+                        .findFirst()
+                        .or(() -> Optional.of('0'))
+                        .get();
+    // '0'
+    ~~~
+
+## **5. `java.util.Objects` 신규 메소드**
