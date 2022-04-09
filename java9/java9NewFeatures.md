@@ -85,7 +85,7 @@
 
 ## **3. Stream 신규 메소드**
 ### 1. `Stream.takeWhile(`*Predicate*`)`
-- `Predicate`의 조건이 `false`가 되기 이전의 스트림을 반환.
+- `Predicate`의 조건이 `false`가 되기 이전의 요소들의 순차 스트림을 반환.
     ~~~java
     String[] fruits = {"apple", "banana", "orange", "mango", "peach"};
     Stream<String> stream = Arrays.stream(fruits).takeWhile(s -> !"orange".equals(s));
@@ -93,7 +93,7 @@
     ~~~
 
 ### 2. `Stream.dropWhile(`*Predicate*`)`
-- `Predicate`의 조건이 `false`를 포함한 이후의 스트림을 반환.
+- `Predicate`의 조건이 `false`가 되기 이전의 요소들을 제외한 순차 스트림을 반환.
 - `Stream.takeWhile()`가 반대되는 메소드.
     ~~~java
     String[] fruits = {"apple", "banana", "orange", "mango", "peach"};
@@ -103,6 +103,7 @@
 
 ### 3. `Stream<T> Stream.iterate(`*T, Predicate, UnaryOperator*`)`
 - `Predicate`의 조건을 만족하는 순차 스트림을 생성하여 반환.
+- 파라미터 순서가 `for`문과 비슷한 형식인 듯.
     ~~~java
     Stream<String> iterate = Stream.iterate("-", s -> s.length() < 5, s -> s+ "-");
     // [-, --, ---, ----]
@@ -128,7 +129,7 @@
     ~~~
 
 ## **4. `java.util.Optional` 개선**
-- **java 8에서 `Optional`을 사용할 때 다소 아쉬운 부분이 있었는데, java 9에서는 그러한 부분의 많은 기능 추가가 있었다.**
+- **java 8에서 `Optional`을 사용할 때 다소 아쉬운 부분이 있었는데, java 9에서는 그러한 부분의 많은 기능에 추가가 있었다.**
 
 ### 1. `Optional.ifPresentOrElse(`*Consumer, Runnable*`)`
 - 값이 존재하면 `Consumer`를 실행하고, 없으면 `Runnable`을 실행한다.
@@ -162,5 +163,3 @@
                         .get();
     // '0'
     ~~~
-
-## **5. `java.util.Objects` 신규 메소드**
