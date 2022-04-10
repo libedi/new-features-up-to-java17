@@ -109,7 +109,7 @@ stream.filter(i -> i % 2 == 0)
     public static void main(String[] args) {
         var x = args.length > 0 ? arg.length : "no args";
         System.out.println(x);  // 10 or no args
-        System.out.println(x.getClass());   // java.util.Integer or java.util.String
+        System.out.println(x.getClass());   // java.lang.Integer or java.lang.String
         x = new Date();     // ok.
         x = Currency.getInstance("USD");    // compile error!
     }
