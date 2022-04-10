@@ -61,7 +61,7 @@
     list.add(new Date());           // ok. Date는 Serializable & Comparable 둘 다 구현 (Java 12부터는 안됨)
     list.add(Currency.getInstance("USD"));  // compile error! Currency는 Comparable이 구현되지 않음
     ~~~
-- 요소가 없고 명시적으로 타입이 지정되지 않은 Collection은 Object로 추론한다.
+- 요소가 없고 명시적으로 타입이 지정되지 않은 Collection은 `Object`로 추론한다.
 - 명시적으로 타입이 지정된 Collection은 해당 제네릭 타입으로 컴파일러가 추론한다.
     ~~~java
     var list1 = new ArrayList<>();   // ArrayList<Object>
