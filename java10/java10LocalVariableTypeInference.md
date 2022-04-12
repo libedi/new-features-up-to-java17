@@ -1,6 +1,6 @@
 # **Java 10 로컬 변수 타입 추론**
 ## **1. 로컬 변수 타입 추론이란?**
-- 로컬 변수의 경우, 실제 유형 대신 특수 예약된 타입명인 **`var`** 를 사용할 수 있다.
+- 로컬 변수의 경우, 실제 타입 대신 특수 예약된 타입명인 **`var`** 를 사용할 수 있다.
 - 이러한 새로운 타입 추론 기능을 통해 boiler-plate 코드를 줄일 수 있다.
 - 하지만, 컴파일러는 우변을 통해 **`var`** 의 실제 타입을 추론해야 하므로 경우에 따라 제한이 있을 수 있다.
 - 결론부터 말하자면, ***우변에 정확한 타입을 지정***해주어야 의도한대로 동작할 수 있다.
@@ -62,13 +62,14 @@
     list.add(Currency.getInstance("USD"));  // compile error! Currency는 Comparable이 구현되지 않음
     ~~~
 - 요소가 없고 명시적으로 타입이 지정되지 않은 Collection은 `Object`로 추론한다.
-- 명시적으로 타입이 지정된 Collection은 해당 제네릭 타입으로 컴파일러가 추론한다.
     ~~~java
     var list1 = new ArrayList<>();   // ArrayList<Object>
     list1.add(10);
     int i1 = (int) list1.get(0);    // cast 필요
-
-    var list2 - new ArrayList<Integer>();   // ArrayList<Integer>
+    ~~~
+- 명시적으로 타입이 지정된 Collection은 해당 제네릭 타입으로 컴파일러가 추론한다.
+    ~~~java
+    var list2 = new ArrayList<Integer>();   // ArrayList<Integer>
     list2.add(10);
     int i2 = list2.get(0);
     ~~~
