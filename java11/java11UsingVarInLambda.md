@@ -1,4 +1,4 @@
-# **Lambda 식 파라미터에 `var` 사용**
+# **Java 11 Lambda 식 파라미터에 `var` 사용**
 - **lambda 식의 파라미터에 `var`를 사용할 수 있다.**
     ~~~java
     IntStream.of(1, 2, 3, 4, 5, 6, 7)
