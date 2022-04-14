@@ -27,3 +27,18 @@
         requires abc.xyz;
     }
     ~~~
+
+## **4. `exports ... to`문**
+- 내보내진 패키지를 `requires`할 수 있는 모듈을 지정할 수 있다. 해당 모듈 외에는 이 패키지를 가져올 수 없다.
+    ~~~java
+    module abc.xyz {
+        exports com.foo.bar to def.stu;
+    }
+    module def.stu {
+        requires abc.xyz;   // O
+    }
+    module ghi.opq {
+        requires abc.xyz;   // X
+    }
+    ~~~
+- 더 자세한 내용은 Baeldung의 [A Guide to Java 9 Modularity](https://www.baeldung.com/java-9-modularity) 참고
