@@ -1,4 +1,4 @@
-# **Java 10 새로 추가된 기능들**
+# **Java 10 새로 추가된 기능**
 ## **1. `Collection`**
 - 수정할 수 없는 `Collection`을 만드는 정적 메소드가 추가되었다.
 - **`List.copyOf(`*Collection*`)`**
