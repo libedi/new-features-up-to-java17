@@ -11,3 +11,5 @@
 - [Java 11 람다식 파라미터에 var 사용](https://github.com/libedi/new-features-up-to-java17/blob/main/java11/java11UsingVarInLambda.md)
 - [Java 11 HTTP Client API](https://github.com/libedi/new-features-up-to-java17/blob/main/java11/java11HttpClientApi.md)
 - [Java 11 새로 추가된 기능](https://github.com/libedi/new-features-up-to-java17/blob/main/java11/java11NewFeatures.md)
+## Java 12
+- [Java 12 새로 추가된 기능](https://github.com/libedi/new-features-up-to-java17/blob/main/java12/java12NewFeatures.md)
