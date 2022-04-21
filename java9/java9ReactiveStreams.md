@@ -78,12 +78,12 @@
                 // item 전달
                 subscriber.onNext(data.get(i));
               }
+              // 완료 전달
+              subscriber.onComplete();
             } catch (Exception e) {
               // 오류 전달
               subscriber.onError(e);
             }
-            // 완료 전달
-            subscriber.onComplete();
           }
 
           @Override
