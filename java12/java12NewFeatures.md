@@ -60,6 +60,35 @@
   String str = "1000";
   Integer integer = str.transform(Integer::parseInt);
   ~~~
-## **2. 간결한 숫자 서식**
+## **2. 간결한 숫자 형식**
+- Java 12에는 기존 숫자 형식 API를 확장하여 locale에 해당하는 간결한 숫자 형식을 지원한다.
+- ### `CompactNumberFormat` 클래스
+  - 10진수에 대한 숫자 형식을 제공하는 `NumberFormat`의 하위 클래스
+  - `NumberFormat` 클래스는 `CompactNumberFormat` 인스턴스를 생성할 수 있는 2개의 정적 팩토리 메소드를 제공한다.
+    ~~~java
+    // default locale with NumberFormat.Style#SHoRT
+    public static NumberFormat getCompactNumberInstance();
+
+    // specfied locale and NumberFormat.Style
+    public static NumberFormat getCompactNumberInstance(Locale locale, NumberFormat.Style formatStyle);
+    ~~~
+- ### `NumberFormat.Style` enum 클래스
+  - 주어진 `NumberFormat` 인스턴스의 숫자 형식을 지정하기 위한 스타일을 나타낸다.
+  - `SHORT`, `LONG` 두 개의 형식을 지원한다.
+- 예제
+  ~~~java
+  NumberFormat short = NumberFormat.getCompactNumberInstance(
+    Locale.US, NumberFormat.Style.SHORT);
+  String shortFormat = short.format(1000);  // 1K
+
+  NumberFormat long = NumberFormat.getCompactNumberInstance(
+    Locale.US, NumberFormat.Style.LONG);
+  String longFormat = long.format(1000);    // 1 thousand
+
+  // 대한민국 단위도 가능하다. 다만 SHORT/LONG이 상관없이 동일하다.
+  NumberFormat korean = NumberFormat.getCompactNumberInstance(
+    Locale.KOREAN, NumberFormat.Style.SHORT);
+  String koreanFormat = korean.format(1000);  // 1천
+  ~~~
 ## **3. Teeing Collector**
 ## **4. `File::mismatch` 메소드**
