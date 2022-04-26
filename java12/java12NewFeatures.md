@@ -91,4 +91,36 @@
   String koreanFormat = korean.format(1000);  // 1천
   ~~~
 ## **3. Teeing Collector**
-## **4. `File::mismatch` 메소드**
+- Java Stream API의 강력함 중 하나는 다양한 Collector를 지원하는데 있다.
+- Java 12에서는 `teeing`이라는 새로운 Collector가 도입되었다.
+- ### `Collectors.teeing(`*Collector*, *Collector*, *BiFunction*`)`
+  - 두 개의 Collector를 병합하는 기능을 제공한다.
+  - 모든 요소는 두 개의 Collector에 의해 처리되고, 그 결과가 병합되어 최종 결과를 반환한다.
+    ~~~java
+    double mean = Stream.of(1, 2, 3, 4, 5)
+				.collect(Collectors.teeing(Collectors.summingDouble(i -> i), 
+						Collectors.counting(), (sum, count) -> sum / count));
+    // 3.0
+    ~~~
+## **4. `Files::mismatch` 메소드**
+- `nio.file.Files` 클래스에 두 개의 파일을 비교하는 새로운 메소드가 추가되었다.
+- ### `public static long mismatch(`*Path*, *Path*`) throws IOException`
+  - 두 파일을 비교하고 내용이 일치하지 않는 첫번째 바이트의 인덱스 위치를 반환한다.
+  - 파일이 동일한 경우, -1L을 반환한다.
+    ~~~java
+    Path path1 = Files.createTempFile("file1", "txt");
+    Path path2 = Files.createTempFile("file2", "txt");
+    Files.writeString(path1, "Java 12 Article");
+    Files.writeString(path2, "Java 12 Article");
+
+    long mismatch1 = Files.mismatch(path1, path2);
+    // -1L
+
+    Path path3 = Files.createTempFile("file3", "txt");
+    Path path4 = Files.createTempFile("file4", "txt");
+    Files.writeString(path3, "Java 12 Article");
+    Files.writeString(path4, "Java 12 Tutorial");
+
+    long mismatch2 = Files.mismatch(path3, path4);
+    // 8L
+    ~~~
