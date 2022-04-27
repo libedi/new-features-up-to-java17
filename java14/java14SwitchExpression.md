@@ -1,6 +1,5 @@
 # **Java 14 Switch 문과 Switch 표현식**
 - Java 12, Java 13에서 Preview 기능으로 제공하던 `switch` 개선사항이 Java 14에서 표준 기능으로 승격하였다.
-- 
 - 비교를 위하여 다음과 같은 `switch`문이 있다고 하자.
   ~~~java
   switch (month) {
