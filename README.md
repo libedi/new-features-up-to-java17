@@ -15,6 +15,6 @@
 ## Java 12
 - [Java 12 새로 추가된 기능](https://github.com/libedi/new-features-up-to-java17/blob/main/java12/java12NewFeatures.md)
 ## Java 13
--  기능 개선과 Preview 기능이 추가되었습니다. Preview 기능은 이후 버전에 표준 기능으로 포함됩니다.
+-  내부 기능 개선과 Preview 기능이 추가되었습니다. Preview 기능은 이후 버전에 표준 기능으로 포함됩니다.
 ## Java 14
 - [Java 14 `switch` 표현식](https://github.com/libedi/new-features-up-to-java17/blob/main/java14/java14SwitchExpression.md)
