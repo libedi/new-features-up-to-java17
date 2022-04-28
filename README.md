@@ -1,6 +1,6 @@
 # Java 17까지의 Java 신규 기능 정리
 - 본문의 내용은 [Core Java Tutorial](https://www.logicbig.com/tutorials/core-java-tutorial)을 기반으로 참고하여 정리한 글입니다.
-- Preview 기능은 제외했으며, 정식으로 포함된 버전에 소개됩니다.
+- 해당 버전의 Preview 기능은 제외했으며, Preview 기능은 정식으로 포함된 버전에 소개됩니다.
 ## Java 9
 - [Java 9 모듈 시스템 소개](https://github.com/libedi/new-features-up-to-java17/blob/main/java9/java9ModuleSystem.md)
 - [Java 9 Reactive Streams](https://github.com/libedi/new-features-up-to-java17/blob/main/java9/java9ReactiveStreams.md)
@@ -19,3 +19,5 @@
 -  내부 기능 개선과 Preview 기능이 추가되었습니다. Preview 기능은 이후 버전에 표준 기능으로 포함됩니다.
 ## Java 14
 - [Java 14 `switch` 표현식](https://github.com/libedi/new-features-up-to-java17/blob/main/java14/java14SwitchExpression.md)
+## Java 15
+- [Java 15 새로 추가된 기능](https://github.com/libedi/new-features-up-to-java17/blob/main/java15/java15NewFeatures.md)
