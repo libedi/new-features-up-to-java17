@@ -1,5 +1,6 @@
 # Java 17까지의 Java 신규 기능 정리
 - 본문의 내용은 [Core Java Tutorial](https://www.logicbig.com/tutorials/core-java-tutorial)을 기반으로 참고하여 정리한 글입니다.
+- Preview 기능은 제외했으며, 정식으로 포함된 버전에 소개됩니다.
 ## Java 9
 - [Java 9 모듈 시스템 소개](https://github.com/libedi/new-features-up-to-java17/blob/main/java9/java9ModuleSystem.md)
 - [Java 9 Reactive Streams](https://github.com/libedi/new-features-up-to-java17/blob/main/java9/java9ReactiveStreams.md)
