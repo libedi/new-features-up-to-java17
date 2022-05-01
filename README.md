@@ -23,4 +23,4 @@
 - [Java 15 새로 추가된 기능](https://github.com/libedi/new-features-up-to-java17/blob/main/java15/java15NewFeatures.md)
 ## Java 16
 - Java 16 Record
-- Java 16 새로 추가된 기능
+- [Java 16 새로 추가된 기능](https://github.com/libedi/new-features-up-to-java17/blob/main/java16/java16NewFeatures.md)
