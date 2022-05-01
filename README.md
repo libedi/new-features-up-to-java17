@@ -24,3 +24,5 @@
 ## Java 16
 - [Java 16 Record](https://github.com/libedi/new-features-up-to-java17/blob/main/java16/java16Record.md)
 - [Java 16 새로 추가된 기능](https://github.com/libedi/new-features-up-to-java17/blob/main/java16/java16NewFeatures.md)
+## Java 17
+- Java 17 Sealed 클래스
