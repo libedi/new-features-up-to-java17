@@ -26,3 +26,14 @@
 - [Java 16 새로 추가된 기능](https://github.com/libedi/new-features-up-to-java17/blob/main/java16/java16NewFeatures.md)
 ## Java 17
 - Java 17 Sealed 클래스
+## 개인적으로 중요하거나 유용하다고 생각되는 기능들
+- [람다식과 함수형 인터페이스](https://multifrontgarden.tistory.com/124)
+- [Stream API](https://www.baeldung.com/java-8-streams-introduction)
+- [`Optional`](https://multifrontgarden.tistory.com/131)
+- [모듈화](https://github.com/libedi/new-features-up-to-java17/blob/main/java9/java9ModuleSystem.md)
+- [`List::of`](https://github.com/libedi/new-features-up-to-java17/blob/main/java9/java9NewFeatures.md#2-list)
+- [`switch` 표현식](https://github.com/libedi/new-features-up-to-java17/blob/main/java14/java14SwitchExpression.md)
+- [텍스트 블록](https://github.com/libedi/new-features-up-to-java17/blob/main/java15/java15NewFeatures.md#1-%ED%85%8D%EC%8A%A4%ED%8A%B8-%EB%B8%94%EB%A1%9D)
+- [Record](https://github.com/libedi/new-features-up-to-java17/blob/main/java16/java16Record.md)
+- [`instanceof` 패턴 매칭](https://github.com/libedi/new-features-up-to-java17/blob/main/java16/java16NewFeatures.md#1-pattern-matching-for-instanceof)
+- Sealed 클래스
