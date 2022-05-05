@@ -1,5 +1,17 @@
 # **Java 12 새로 추가된 기능**
-## **1. `String` 클래스 신규 메소드**
+## **1. Teeing Collector**
+- Java Stream API의 강력함 중 하나는 다양한 Collector를 지원하는데 있다.
+- Java 12에서는 `teeing`이라는 새로운 Collector가 도입되었다.
+- ### `Collectors.teeing(`*Collector*, *Collector*, *BiFunction*`)`
+  - 두 개의 Collector를 병합하는 기능을 제공한다.
+  - 모든 요소는 두 개의 Collector에 의해 처리되고, 그 결과가 병합되어 최종 결과를 반환한다.
+    ~~~java
+    double mean = Stream.of(1, 2, 3, 4, 5)
+				.collect(Collectors.teeing(Collectors.summingDouble(i -> i), 
+						Collectors.counting(), (sum, count) -> sum / count));
+    // 3.0
+    ~~~
+## **2. `String` 클래스 신규 메소드**
 - ### `indent(int n)`
   - 문자열의 각각의 라인의 들여쓰기를 조정한다.
   - n > 0이면, n만큼 공백문자를 삽입한다.
@@ -60,7 +72,7 @@
   String str = "1000";
   Integer integer = str.transform(Integer::parseInt);
   ~~~
-## **2. 간결한 숫자 형식**
+## **3. 간결한 숫자 형식**
 - Java 12에는 기존 숫자 형식 API를 확장하여 locale에 해당하는 간결한 숫자 형식을 지원한다.
 - ### `CompactNumberFormat` 클래스
   - 10진수에 대한 숫자 형식을 제공하는 `NumberFormat`의 하위 클래스
@@ -90,18 +102,6 @@
     Locale.KOREAN, NumberFormat.Style.SHORT);
   String koreanFormat = korean.format(1000);  // 1천
   ~~~
-## **3. Teeing Collector**
-- Java Stream API의 강력함 중 하나는 다양한 Collector를 지원하는데 있다.
-- Java 12에서는 `teeing`이라는 새로운 Collector가 도입되었다.
-- ### `Collectors.teeing(`*Collector*, *Collector*, *BiFunction*`)`
-  - 두 개의 Collector를 병합하는 기능을 제공한다.
-  - 모든 요소는 두 개의 Collector에 의해 처리되고, 그 결과가 병합되어 최종 결과를 반환한다.
-    ~~~java
-    double mean = Stream.of(1, 2, 3, 4, 5)
-				.collect(Collectors.teeing(Collectors.summingDouble(i -> i), 
-						Collectors.counting(), (sum, count) -> sum / count));
-    // 3.0
-    ~~~
 ## **4. `Files::mismatch` 메소드**
 - `nio.file.Files` 클래스에 두 개의 파일을 비교하는 새로운 메소드가 추가되었다.
 - ### `public static long mismatch(`*Path*, *Path*`) throws IOException`
