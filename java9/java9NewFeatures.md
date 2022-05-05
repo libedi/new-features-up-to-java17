@@ -94,7 +94,7 @@
 
 ### 2. `Stream.dropWhile(`*Predicate*`)`
 - `Predicate`의 조건이 `false`가 되기 이전의 요소들을 제외한 순차 스트림을 반환.
-- `Stream.takeWhile()`가 반대되는 메소드.
+- `Stream.takeWhile()`와 반대되는 메소드.
     ~~~java
     String[] fruits = {"apple", "banana", "orange", "mango", "peach"};
     Stream<String> stream = Arrays.stream(fruits).dropWhile(s -> !"orange".equals(s));
@@ -129,11 +129,10 @@
     ~~~
 
 ## **4. `java.util.Optional` 개선**
-- **java 8에서 `Optional`을 사용할 때 다소 아쉬운 부분이 있었는데, java 9에서는 그러한 부분의 많은 기능에 추가가 있었다.**
+- **Java 8에서 `Optional`을 사용할 때 다소 아쉬운 부분이 있었는데, Java 9에서는 그러한 부분에 많은 기능이 추가 되었다.**
 
 ### 1. `Optional.ifPresentOrElse(`*Consumer, Runnable*`)`
 - 값이 존재하면 `Consumer`를 실행하고, 없으면 `Runnable`을 실행한다.
-- java 8에서 가장 아쉬웠던 부분이었는데, 가장 유용한 기능 중의 하나가 아닐까 한다.
     ~~~java
     IntStream.of(1, 2, 4)
              .filter(i -> i % 3 == 0)
@@ -143,13 +142,19 @@
              });
              // No multiple of 3 found
     ~~~
+- Java 8에서 가장 아쉬웠던 부분이었는데, 유용한 기능 중의 하나가 아닐까 한다.
 
 ### 2. `Optional.stream()`
-- 값이 존재하면 순차 스트림을 반환하고, 없으면 빈 스트림을 반환한다.
-- 이 메소드는 `Optional` 스트림을 스트림으로 변환할 때 사용될 수 있다.
+- 값이 존재하면 해당 값의 단일 순차 스트림을 반환하고, 없으면 빈 스트림을 반환한다.
+- 이 메소드는 스트림의 요소가 `Optional` 일 때, 그 요소의 스트림으로 변환할 때 유용할 수 있다.
     ~~~java
-    Stream<Optional<T>> os = ...
-    Stream<T> s = os.flatMap(Optional::stream);
+    Stream<Optional<String>> os = Stream.of(
+        Optional.of("1"),
+        Optional.empty(),
+        Optional.of("3")
+    );
+    Stream<String> s = os.flatMap(Optional::stream);
+    // ["1", "3"]
     ~~~
 
 ### 3. `Optional.or(`*Supplier*`)`
