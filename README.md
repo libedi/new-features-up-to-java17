@@ -26,7 +26,7 @@
 - [Java 16 새로 추가된 기능](https://github.com/libedi/new-features-up-to-java17/blob/main/java16/java16NewFeatures.md)
 ## Java 17
 - [Java 17 Sealed 클래스](https://github.com/libedi/new-features-up-to-java17/blob/main/java17/java17SealedClasses.md)
-## 개인적으로 중요하거나 유용하다고 생각되는 기능들
+## 개인적으로 중요하거나 유용하다고 생각되는 기능들 (Java 8 ~ 17)
 - [람다식과 함수형 인터페이스](https://multifrontgarden.tistory.com/124)
 - [Stream API](https://www.baeldung.com/java-8-streams-introduction)
 - [`Optional`](https://multifrontgarden.tistory.com/131)
