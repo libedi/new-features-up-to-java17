@@ -2,7 +2,6 @@
 - Java 15, 16의 Preview 기능이던 Sealed 클래스가 Java 17에서 표준 기능으로 포함되었다.
 - 클래스(또는 인터페이스)는 이제 이를 상속하거나 구현할 수 있는 하위 클래스 또는 인터페이스를 제한할 수 있다.
 - 이는 도메인 모델링 및 라이브러리 보안 강화에 유용한 기능이 될 수 있다.
-- 생성시점에 모든 타입을 알 수 있는 enum의 장점을 클래스 계층구조에 적용한 것으로 보인다.
 - ## **도입배경**
   - Java의 클래스 계층구조(Class Hierarchy)는 상속을 통해 코드를 재사용할 수 있다.
   - 그러나 클래스 계층구조의 목적이 항상 코드의 재사용에 있지는 않다.
@@ -40,6 +39,8 @@
     3. ***더불어 수퍼 클래스는 서브 클래스가 `final` 등으로 상태를 정의하도록 과도하게 제한해서는 안된다.***
 - ## **Sealed 클래스/인터페이스 생성**
   - 주요 키워드는 **`sealed`** 와 **`permits`** 이다.
+  - 클래스/인터페이스 수정자 위치에 `sealed` 키워드를 사용하여 해당 클래스/인터페이스가 Sealed 클래스 인터페이스 임을 선언한다.
+  - `permits` 키워드로 해당 Sealed 클래스/인터페이스를 확장할 수 있는 서브 클래스/인터페이스를 정의한다.
   - ### **Sealed 인터페이스**
     ~~~java
     public sealed interface Vehicle permits Truck, Car, Bike {
@@ -48,6 +49,7 @@
     }
     ~~~
   - ### **Sealed 클래스**
+    - 반드시 추상 클래스로만 선언할 수 있다.
     ~~~java
     public abstract sealed class EngineVehicle permits Truck, Car {
       public void start() {
@@ -59,3 +61,121 @@
       protected abstract String engineType();
     }
     ~~~
+- ## **서브 클래스**
+  - Sealed 클래스/인터페이스를 확장/구현하는 서브 클래스는 반드시 다음 3가지 수정자 키워드 중 하나를 선택해야 한다.
+    1. ***`final`***
+    2. ***`non-sealed`***
+    3. ***`sealed`***
+  - ### **`final` 클래스**
+    - 더이상 확장이 불가능하도록 `final`클래스로 선언한다.
+    ~~~java
+    public final class Bike implements Vehicle {
+      @Override
+      public void go() {
+        System.out.println("Go bike.");
+      }
+      @Override
+      public void stop() {
+        System.out.println("Stop bike.");
+      }
+    }
+    ~~~
+  - ### **`non-sealed` 클래스**
+    - 해당 키워드를 선언하면 알려지지 않은 서브 클래스에 의해 확장이 가능하다.
+    ~~~java
+    // Car.java
+    // non-sealed 선언으로 확장이 가능하다.
+    public non-sealed class Car extends EngineVehicle implements Vehicle {
+      @Override
+      public void go() {
+        System.out.println("Go car.");
+      }
+      @Override
+      public void stop() {
+        System.out.println("Stop car.");
+      }
+      @Override
+      protected String engineType() {
+        return "Gasoline";
+      }
+      public void getIn() {
+        System.out.println("Get it passengers.");
+      }
+      public void getOut() {
+        System.out.println("Get out passengers.");
+      }
+    }
+
+    // Avante.java
+    // Car 클래스를 확장한 클래스
+    public class Avante extends Car {    
+    }
+
+    // Tesla.java
+    // Car 클래스를 확장한 클래스
+    public class Tesla extends Car {
+      @Override
+      protected String engineType() {
+        return "Electric";
+      }
+    }
+    ~~~
+  - ### **`Sealed` 클래스/인터페이스**
+    - 하위 계층의 Sealed 구조를 생성한다.
+    - `sealed` 와 `permits` 키워드를 사용한다.
+    - 반드시 추상 클래스 또는 인터페이스로만 선언이 가능하다.
+    ~~~java
+    // Truck.java
+    // Sealed 클래스
+    public abstract sealed class Truck extends EngineVehicle implements Vehicle permits DumpTruck {
+      public abstract void load();
+      public abstract void upload();
+    }
+
+    // DumpTruck.java
+    // Truck Sealed 클래스를 확장한 final 클래스
+    public final class DumpTruck extends Truck {
+      @Override
+      public void go() {
+        System.out.println("Go dump truck.");
+      }
+      @Override
+      public void stop() {
+        System.out.println("Stop dump truck.");
+      }
+      @Override
+      protected String engineType() {
+        return "Diesel";
+      }
+      @Override
+      public void load() {
+        System.out.println("Load cargo.");
+      }
+      @Override
+      public void upload() {
+        System.out.println("Unload cargo.");
+      }
+    }
+    ~~~
+- ## **제약사항**
+  - Sealed 클래스는 허용되는 서브 클래스에 다음 3가지 중요한 제약조건을 부과한다.
+    1. 허용된 모든 서브 클래스는 Sealed 클래스와 동일한 모듈에 속해야 한다.
+    2. 허용된 모든 서브 클래스는 Sealed 클래스를 명시적으로 확장해야 한다.
+    3. 허용된 모든 서브 클래스는 수정자(*`final`*, *`non-sealed`*, *`sealed`*)를 정의해야 한다.
+- ## **클라이언트에서의 사용**
+  - Sealed 클래스는 도메인/API 개발자 뿐만 아니라, 해당 클래스를 사용하는 클라이언트에게도 이점이 있다.
+  - 클라이언트 개발자도 이제 서브 클래스가 무엇인지 명확하게 알 수 있어, 불필요한 코드가 줄어들게 된다.
+  - 이전에는 다음과 같이 알려지지 않은 서브 클래스도 고려한 코드를 작성해야 했다.
+    ~~~java
+    if (vehicle instanceof Truck truck) {
+      // ...
+    } else if (vehicle instanceof Car car) {
+      // ...
+    } else if (vehicle instanceof Bike bike) {
+      // ...
+    } else {
+      throw new RuntimeException("Unknown instance of Vehicle");
+    }
+    ~~~
+  - 더이상 `else`는 필요하지 않고, [JEP406: Pattern Matching for `switch`](https://openjdk.java.net/jeps/406)가 적용되면, `switch` 문에서도 `enum` 처럼 사용이 가능하다.
+  - 생성시점에 모든 타입을 알 수 있는 `enum` 의 장점을 클래스 계층구조에 적용한 것으로 보인다.
